@@ -59,3 +59,15 @@ export const deleteTask = async (taskId: number) => {
     throw new Error("Failed to delete task");
   }
 };
+
+export const completeTask = async (taskId: number) => {
+  try {
+    const response = await axios.put(`${API_URL}/done/${taskId}`);
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 404) {
+      throw new Error("Task not found");
+    }
+    throw new Error("Failed to complete task");
+  }
+};

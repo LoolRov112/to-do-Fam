@@ -145,4 +145,25 @@ router.delete("/:taskId", async (req, res) => {
   }
 });
 
+router.put("/done/:taskId", async (req, res) => {
+  const { taskId } = req.params;
+
+  try {
+    const result = await pool.query(
+      "UPDATE tasks SET done = NOT done WHERE id = $1 RETURNING *",
+      [taskId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Error toggling task done status:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+})
+
+
 module.exports = router;

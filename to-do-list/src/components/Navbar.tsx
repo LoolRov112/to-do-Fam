@@ -17,8 +17,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     <div className="sticky top-0 z-50">
       <nav className="bg-[#F4F7F5] border-b border-[#2F2504]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            {/* לוגו */}
+          <div className="flex h-16 items-center justify-between w-full">
             <div className="flex items-center">
               <img
                 className="h-10 w-auto"
@@ -56,11 +55,12 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 <>
                   <button
                     onClick={() => navigate("/famTasks")}
-                    className="bg-[#5B85AA] text-white px-4 py-1.5 rounded-md hover:bg-[#4a6d8a] transition duration-150 font-medium"
+                    className="bg-[#5B85AA] text-white px-4 py-1.5 rounded-md
+                      hover:bg-[#4a6d8a] transition duration-150 font-medium"
                   >
                     <img
                       src="/imgs/tasks.png"
-                      alt="Logout"
+                      alt="Tasks"
                       className="w-5 h-5 inline mr-2"
                     />
                     All Group Tasks
@@ -79,7 +79,8 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="bg-[#5B85AA] text-white px-4 py-1.5 rounded-md hover:bg-[#4a6d8a] transition duration-150 font-medium"
+                    className="bg-[#5B85AA] text-white px-4 py-1.5 rounded-md
+                      hover:bg-[#4a6d8a] transition duration-150 font-medium"
                   >
                     Logout
                     <img
@@ -92,11 +93,12 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               )}
             </div>
 
-            <div className="sm:hidden">
+            <div className="sm:hidden ml-auto">
               <button
                 type="button"
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="inline-flex items-center justify-center rounded-md p-2 text-[#372248] hover:bg-[#e3e6e5] focus:outline-none"
+                className="inline-flex items-center justify-center rounded-md
+                  p-2 text-[#372248] hover:bg-[#e3e6e5] focus:outline-none"
                 aria-expanded={menuOpen}
               >
                 <svg
@@ -126,9 +128,9 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
           </div>
         </div>
 
-        {/* ניווט מובייל */}
+        {/* Mobile Navigation */}
         {menuOpen && (
-          <div className="sm:hidden px-4 pb-4">
+          <div className="sm:hidden pb-4 ml-auto">
             {!isLoggedIn ? (
               <>
                 <Link
@@ -160,24 +162,27 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     navigate("/famTasks");
                     setMenuOpen(false);
                   }}
-                  className="block w-full text-left text-[#5B85AA] py-2 font-medium hover:underline"
+                  className="block w-full text-left text-[#5B85AA]
+                    py-2 font-medium hover:underline"
                 >
                   <img
-                    src="\imgs\tasks.png"
-                    alt="sdvsv"
+                    src="/imgs/tasks.png"
+                    alt="Tasks"
                     className="w-5 h-5 inline mr-1"
                   />
                   All Group Tasks
                 </button>
                 <Link
                   to="/about"
-                  className="block w-full text-left text-[#5B85AA] py-2 font-medium hover:underline"
+                  className="block w-full text-left text-[#5B85AA]
+                    py-2 font-medium hover:underline"
                 >
                   About
                 </Link>
                 <Link
                   to="/home"
-                  className="block w-full text-left text-[#5B85AA] py-2 font-medium hover:underline"
+                  className="block w-full text-left text-[#5B85AA]
+                    py-2 font-medium hover:underline"
                 >
                   Home
                 </Link>
@@ -186,7 +191,8 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     handleLogout();
                     setMenuOpen(false);
                   }}
-                  className="block w-full text-left text-[#5B85AA] py-2 font-medium hover:underline"
+                  className="block w-full text-left text-[#5B85AA]
+                    py-2 font-medium hover:underline"
                 >
                   Logout
                   <img

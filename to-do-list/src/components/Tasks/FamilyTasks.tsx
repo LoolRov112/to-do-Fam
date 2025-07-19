@@ -49,8 +49,8 @@ const FamilyTasks: FunctionComponent<FamilyTasksProps> = () => {
 
   return (
     <>
-      <div className="p-4">
-        <div className="flex flexwrap justify-center gap-1">
+      <div className="p-2 max-w-5xl mx-auto">
+        <div className="flex flex-col md:flex-row flex-wrap gap-4 md:gap-2 mb-6 items-center justify-center">
           {tasks.length > 0 ? (
             tasks.map((task) => (
               <div key={task.id} className="w-full max-w-md">
