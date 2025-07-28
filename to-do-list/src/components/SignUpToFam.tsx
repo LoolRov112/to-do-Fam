@@ -48,7 +48,7 @@ const SignUpToFamily: FunctionComponent<SignUpToFamilyProps> = () => {
         if (!familyNickname || !creatorName) {
           member = await createMember({
             family_nickname: values.nickName,
-            full_Name: values.full_Name,
+            full_name: values.full_Name,
             username: values.userName,
             password: values.password,
             is_creator: false,
@@ -56,7 +56,7 @@ const SignUpToFamily: FunctionComponent<SignUpToFamilyProps> = () => {
         } else {
           member = await createMember({
             family_nickname: values.nickName,
-            full_Name: values.full_Name,
+            full_name: values.full_Name,
             username: values.userName,
             password: values.password,
             is_creator: true,

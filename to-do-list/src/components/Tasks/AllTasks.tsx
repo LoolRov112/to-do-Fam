@@ -12,7 +12,9 @@ const AllTasks: FunctionComponent<TasksListProps> = ({
   id,
   onUpdate,
 }) => {
-  const userTasks = tasks.filter((task) => Number(task.user_id) === id);
+  const userTasks = tasks.filter(
+    (task) => !task.done && Number(task.user_id) === id
+  );
   console.log("All tasks received in component:", tasks);
   return (
     <>

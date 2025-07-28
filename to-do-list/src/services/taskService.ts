@@ -13,16 +13,16 @@ export const getTasksByFamilyId = async (familyId: number) => {
     throw new Error("Failed to fetch tasks");
   }
 };
-export const getTasksByUserAndFamily = async (familyId: number, id: number) => {
+export const getTasksByUserAndFamily = async (
+  familyId: number,
+  userId: number
+) => {
   try {
-    const response = await axios.get(`${API_URL}/${familyId}/user/${id}`);
+    const response = await axios.get(`${API_URL}/${familyId}/user/${userId}`);
     return response.data;
-  } catch (error: any) {
-    if (error.response?.status === 404) {
-      console.error("Error fetching tasks:", error);
-      throw new Error("Tasks not found for this user in this family");
-    }
-    throw new Error("Failed to fetch tasks");
+  } catch (err: any) {
+    console.error("Error fetching tasks:", err);
+    throw new Error(err.response?.data?.error || "Error fetching tasks");
   }
 };
 

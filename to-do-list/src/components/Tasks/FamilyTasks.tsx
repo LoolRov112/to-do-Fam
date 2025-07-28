@@ -8,6 +8,7 @@ import {
 import { getTasksByFamilyId } from "../../services/taskService";
 import TaskCard from "./TaskCard";
 import { Member } from "../../Models/Member";
+import { Link } from "react-router-dom";
 
 interface FamilyTasksProps {}
 
@@ -37,6 +38,7 @@ const FamilyTasks: FunctionComponent<FamilyTasksProps> = () => {
             console.log("memberMap:", memberMap[member.id]);
           }
         });
+        setMembersMap(memberMap);
         console.log("membersMap keys:", Object.keys(membersMap));
         const fetchedTasks = await getTasksByFamilyId(family.id);
         setTasks(fetchedTasks);
@@ -44,6 +46,8 @@ const FamilyTasks: FunctionComponent<FamilyTasksProps> = () => {
         console.error("Error fetching member or tasks:", err);
       }
     };
+
+    console.log(membersMap);
     fetchData();
   }, []);
 
@@ -55,7 +59,10 @@ const FamilyTasks: FunctionComponent<FamilyTasksProps> = () => {
             tasks.map((task) => (
               <div key={task.id} className="w-full max-w-md">
                 <div className="text-sm text-[#5B85AA] mb-1 font-bold text-start">
-                  Assigned to: {membersMap[task.user_id] || "Unknown"}
+                  Assigned to:
+                  <Link to={`/profile/${membersMap[task.user_id]}`}>
+                    {membersMap[task.user_id] || "Unknown"}
+                  </Link>
                 </div>
                 <TaskCard task={task} />
               </div>

@@ -36,14 +36,7 @@ router.get("/:familyId/user/:userId", async (req, res) => {
       [familyId, userId]
     );
 
-    if (tasksResult.rows.length === 0) {
-      console.log("No tasks found for this user in this family");
-      return res
-        .status(404)
-        .json({ error: "No tasks found for this user in this family" });
-    }
-
-    res.json(tasksResult.rows);
+    return res.json(tasksResult.rows); // אפילו אם הוא []
   } catch (err) {
     console.error("Error fetching member or tasks:", err);
     res.status(500).json({ error: "Server error" });
@@ -163,7 +156,6 @@ router.put("/done/:taskId", async (req, res) => {
     console.error("Error toggling task done status:", err);
     res.status(500).json({ error: "Server error" });
   }
-})
-
+});
 
 module.exports = router;

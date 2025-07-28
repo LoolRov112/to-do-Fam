@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Member } from "../Models/Member";
 import { getFamilyByNickName } from "./familyService";
+import exp from "constants";
 
 const API_URL = "http://localhost:3001/members";
 
@@ -64,4 +65,27 @@ export const getAllMembersByFamily = async (familyNickName: string) => {
     }
     throw new Error("Failed to fetch members");
   }
+};
+
+export let getMemberByNameAndIdFam = async (id: number, name: string) => {
+  try {
+    let response = await axios.get(`${API_URL}/${id}/${name}`);
+    return response.data;
+  } catch (error) {
+    const err = error as any;
+    if (err.response?.status === 404) {
+      throw new Error("Member not found");
+    }
+    throw new Error("Failed to fetch member by name and id");
+  }
+};
+
+export let updateMemberRole = async (
+  nickname: string,
+  memberId: number,
+  isCreator: boolean
+) => {
+  return await axios.put(`${API_URL}/${nickname}/${memberId}/role`, {
+    is_creator: isCreator,
+  });
 };

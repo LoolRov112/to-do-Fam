@@ -10,6 +10,9 @@ import SignUpToFamily from "./components/SignUpToFam";
 import NewPasswordForMember from "./components/NewPassMem";
 import Home from "./components/Tasks/Home";
 import FamilyTasks from "./components/Tasks/FamilyTasks";
+import { useParams } from "react-router-dom";
+import OtherMemberTasks from "./components/Tasks/OtherMemberTasks";
+import FamilyMembers from "./components/FamilyMembers";
 
 function App() {
   return (
@@ -25,6 +28,13 @@ function App() {
           path="/joinToExist/newMember"
           element={<NewPasswordForMember />}
         ></Route>
+        <Route>
+          <Route
+            path="/profile/:memberUsername"
+            element={<OtherMemberTasks />}
+          />
+        </Route>
+        <Route path="/members" element={<FamilyMembers />} />
         <Route path="/about" element={<AboutUs />}></Route>
         <Route path="/famTasks" element={<FamilyTasks />}></Route>
       </Routes>

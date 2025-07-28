@@ -77,6 +77,12 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   >
                     Home
                   </Link>
+                  <Link
+                    to="/members"
+                    className="text-[#5B85AA] hover:underline font-medium"
+                  >
+                    Family Members
+                  </Link>
                   <button
                     onClick={handleLogout}
                     className="bg-[#5B85AA] text-white px-4 py-1.5 rounded-md
@@ -185,6 +191,13 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     py-2 font-medium hover:underline"
                 >
                   Home
+                </Link>
+                <Link
+                  to="/members"
+                  className="block w-full text-left text-[#5B85AA]
+                    py-2 font-medium hover:underline"
+                >
+                  Family Members
                 </Link>
                 <button
                   onClick={() => {

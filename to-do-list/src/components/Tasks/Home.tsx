@@ -7,39 +7,57 @@ import { getMemberByUserName } from "../../services/membersService";
 import { getFamilyByNickName } from "../../services/familyService";
 import AddTaskModal from "./AddTaskModal";
 
-const Home: FunctionComponent = () => {
+interface HomeProps {
+  overrideFamilyId?: number;
+  overrideUserId?: number;
+}
+
+const Home: FunctionComponent<HomeProps> = ({
+  overrideFamilyId,
+  overrideUserId,
+}) => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [family_id, setFamilyId] = useState<number>(-1);
-  const [view, setView] = useState<"all" | "pending" | "completed">("all");
-  const [user_id, setId] = useState<number>(-1);
+  const [family_id, setFamilyId] = useState<number>(overrideFamilyId ?? -1);
+  const [user_id, setUserId] = useState<number>(overrideUserId ?? -1);
+  const [view, setView] = useState<"all" | "completed">("all");
 
   useEffect(() => {
     const fetchData = async () => {
-      const familyNickname = sessionStorage.getItem("familyNickname");
-      const userName = sessionStorage.getItem("userName");
+      let famId = overrideFamilyId;
+      let usrId = overrideUserId;
 
-      if (!familyNickname || !userName) {
-        console.error("Missing family nickname or username in sessionStorage");
-        return;
-      }
+      if (!famId || !usrId) {
+        const familyNickname = sessionStorage.getItem("familyNickname");
+        const userName = sessionStorage.getItem("userName");
 
-      try {
+        if (!familyNickname || !userName) {
+          console.error("Missing session info");
+          return;
+        }
+
         const family = await getFamilyByNickName(familyNickname);
         const member = await getMemberByUserName(familyNickname, userName);
-        setFamilyId(family.id);
-        setId(member.id);
+
+        famId = family.id;
+        usrId = member.id;
+      }
+
+      setFamilyId(famId ?? -1);
+      setUserId(usrId ?? -1);
+
+      try {
         const fetchedTasks = await getTasksByUserAndFamily(
-          family.id,
-          member.id
+          famId ?? -1,
+          usrId ?? -1
         );
         setTasks(fetchedTasks);
       } catch (err) {
-        console.error("Error fetching member or tasks:", err);
+        console.error("Error fetching tasks:", err);
       }
     };
 
     fetchData();
-  }, [tasks]);
+  }, [overrideFamilyId, overrideUserId]);
 
   return (
     <div className="p-4 max-w-5xl mx-auto">
@@ -55,7 +73,7 @@ const Home: FunctionComponent = () => {
           }`}
           onClick={() => setView("all")}
         >
-          All Tasks
+          Pending Tasks
         </button>
 
         <button
